@@ -22,6 +22,13 @@
             int pageNumber = 1,
             int pageSize = 20)
         {
+            if (pageNumber < 1 ||
+                pageSize < 1 ||
+                pageSize > Constants.MaximumPageSize)
+            {
+                return BadRequest();
+            }
+
             Show[] result = await _mediator.Send(
                 new Get.Query
                 {
