@@ -1,20 +1,28 @@
-namespace Ingestor;
-
-public class Worker : BackgroundService
+﻿namespace Ingestor
 {
-    private readonly ILogger<Worker> _logger;
+    using System;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.Logging;
 
-    public Worker(ILogger<Worker> logger)
+    public class Worker : BackgroundService
     {
-        _logger = logger;
-    }
+        private readonly ILogger<Worker> _logger;
 
-    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-    {
-        while (!stoppingToken.IsCancellationRequested)
+        public Worker(ILogger<Worker> logger)
         {
-            _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-            await Task.Delay(1000, stoppingToken);
+            _logger = logger;
+        }
+
+        protected override async Task ExecuteAsync(
+            CancellationToken stoppingToken)
+        {
+            while (!stoppingToken.IsCancellationRequested)
+            {
+                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+                await Task.Delay(1000, stoppingToken);
+            }
         }
     }
 }
