@@ -1,20 +1,17 @@
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Testing;
-using NUnit.Framework;
-
 namespace Api.Test
 {
-    public class HealthTests
+    using System.Net;
+    using System.Net.Http;
+    using System.Threading.Tasks;
+    using Bases;
+    using NUnit.Framework;
+
+    public class HealthTests : ApiTestBase
     {
         [Test]
         public async Task ApplicationIsHealthy()
         {
-            WebApplicationFactory<Program> factory =
-                new WebApplicationFactory<Program>();
-
-            HttpClient client = factory.CreateClient();
+            HttpClient client = GetClient();
 
             HttpResponseMessage response = await client.GetAsync("/health");
 

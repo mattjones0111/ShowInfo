@@ -2,8 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>dotnet-Ingestor-F0E2AB86-7AC3-4EDA-8D63-B87BBED9B38E</UserSecretsId>
   </PropertyGroup>
 
