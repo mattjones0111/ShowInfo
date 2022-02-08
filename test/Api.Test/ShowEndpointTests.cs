@@ -20,6 +20,8 @@
             Assert.AreEqual(20, page1.Length);
             Assert.AreEqual(20, page2.Length);
 
+            // make sure that no item that appears in page 1
+            // also appears in page 2
             Assert.IsFalse(
                 page1
                     .Select(x => x.Id)
