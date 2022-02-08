@@ -8,11 +8,11 @@
 
     [ApiController]
     [Route("shows")]
-    public class ShowController : ControllerBase
+    public class ShowsController : ControllerBase
     {
         readonly IMediator _mediator;
 
-        public ShowController(IMediator mediator)
+        public ShowsController(IMediator mediator)
         {
             _mediator = mediator;
         }
