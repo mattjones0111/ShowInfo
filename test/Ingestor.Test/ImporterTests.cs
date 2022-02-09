@@ -17,10 +17,12 @@
 
     public class ImporterTests
     {
-        [Test]
-        public async Task CanImportShowInformation()
+        IImporter _subject;
+        IShowRepository _repo;
+
+        [SetUp]
+        public void Setup()
         {
-            // ARRANGE
             IServiceCollection services = new ServiceCollection();
 
             services.AddImporterService();
@@ -44,28 +46,33 @@
             IHttpClientFactory factory =
                 new StubHttpClientFactory(options.CreateHttpClient());
 
-            services.Replace(ServiceDescriptor.Describe(
-                typeof(IHttpClientFactory),
-                _ => factory,
-                ServiceLifetime.Transient));
+            services.Replace(
+                ServiceDescriptor.Describe(
+                    typeof(IHttpClientFactory),
+                    _ => factory,
+                    ServiceLifetime.Transient));
 
-            InMemoryShowRepository repo = new InMemoryShowRepository();
+            _repo = new InMemoryShowRepository();
 
             services.Replace(
                 ServiceDescriptor.Describe(
                     typeof(IShowRepository),
-                    _ => repo,
+                    _ => _repo,
                     ServiceLifetime.Singleton));
 
             IServiceProvider provider = services.BuildServiceProvider();
 
-            IImporter subject = provider.GetRequiredService<IImporter>();
+            _subject = provider.GetRequiredService<IImporter>();
+        }
 
+        [Test]
+        public async Task CanImportShowInformation()
+        {
             // ACT
-            await subject.GoAsync();
+            await _subject.GoAsync();
 
             // ASSERT
-            Show[] fromRepo = await repo.GetAsync(1, 1);
+            Show[] fromRepo = await _repo.GetAsync(1, 1);
 
             Show actual = fromRepo.SingleOrDefault();
 

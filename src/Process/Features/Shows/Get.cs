@@ -3,6 +3,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Contracts.V1;
+    using FluentValidation;
     using MediatR;
     using Ports;
 
@@ -12,6 +13,19 @@
         {
             public int PageNumber { get; set; }
             public int PageSize { get; set; }
+        }
+
+        public class Validator : AbstractValidator<Query>
+        {
+            public Validator()
+            {
+                RuleFor(x => x.PageNumber)
+                    .GreaterThan(0);
+
+                RuleFor(x => x.PageSize)
+                    .GreaterThan(0)
+                    .LessThan(Constants.MaximumPageSize);
+            }
         }
 
         public class Handler : IRequestHandler<Query, Show[]>

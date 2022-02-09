@@ -1,4 +1,4 @@
-﻿namespace Api
+﻿namespace Process
 {
     public static class Constants
     {

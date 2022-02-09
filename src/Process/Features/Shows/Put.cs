@@ -3,6 +3,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Contracts.V1;
+    using FluentValidation;
     using MediatR;
     using Pipeline;
     using Ports;
@@ -12,6 +13,15 @@
         public class Command : IRequest<CommandResult>
         {
             public Show Show { get; set; }
+        }
+
+        public class Validator : AbstractValidator<Command>
+        {
+            public Validator()
+            {
+                RuleFor(x => x.Show)
+                    .NotNull();
+            }
         }
 
         public class Handler : IRequestHandler<Command, CommandResult>

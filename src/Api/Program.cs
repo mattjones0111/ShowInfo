@@ -1,11 +1,10 @@
 ﻿namespace Api
 {
-    using MediatR;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
     using Middleware;
-    using Process;
     using Process.Adapters;
+    using Process.Configuration;
     using Process.Ports;
 
     public class Program
@@ -18,11 +17,13 @@
 
             builder.Services.AddHealthChecks();
 
-            builder.Services.AddMediatR(typeof(IProcessLivesHere));
+            builder.Services.AddFeatures();
 
             builder.Services.AddSingleton<IShowRepository, InMemoryShowRepository>();
 
             WebApplication app = builder.Build();
+
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             app.UseRouting();
 

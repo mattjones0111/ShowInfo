@@ -6,6 +6,10 @@
 
   <ItemGroup>
     <PackageReference Include="MediatR" Version="10.0.1" />
+    <PackageReference Include="FluentValidation" Version="10.3.6" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+    <PackageReference Include="Scrutor" Version="4.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,7 +19,8 @@
 
   <ItemGroup>
     <Folder Include="Adapters\" />
-    <Folder Include="Pipeline\" />
+    <Folder Include="Aspects\Validation\" />
+    <Folder Include="Configuration\" />
     <Folder Include="Ports\" />
   </ItemGroup>
 
