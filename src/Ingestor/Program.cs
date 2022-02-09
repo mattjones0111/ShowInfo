@@ -1,7 +1,7 @@
 ﻿namespace Ingestor
 {
     using System.Threading.Tasks;
-    using Microsoft.Extensions.DependencyInjection;
+    using Configuration;
     using Microsoft.Extensions.Hosting;
 
     public class Program
@@ -11,7 +11,7 @@
             IHost host = Host.CreateDefaultBuilder(args)
                 .ConfigureServices(services =>
                 {
-                    services.AddHostedService<Worker>();
+                    services.AddImporterService();
                 })
                 .Build();
 

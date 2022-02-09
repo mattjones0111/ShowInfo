@@ -6,5 +6,6 @@
     public interface IShowRepository
     {
         Task<Show[]> GetAsync(int pageNumber, int pageSize);
+        Task StoreAsync(Show show);
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Process.Adapters
 {
-    using System.Collections.Generic;
+    using System.Collections.Concurrent;
     using System.Linq;
     using System.Threading.Tasks;
     using Contracts.V1;
@@ -9,7 +9,7 @@
 
     public sealed class InMemoryShowRepository : IShowRepository
     {
-        readonly Dictionary<string, Show> _dictionary = new();
+        readonly ConcurrentDictionary<int, Show> _dictionary = new();
 
         public Task<Show[]> GetAsync(int pageNumber, int pageSize)
         {
@@ -24,9 +24,9 @@
             return Task.FromResult(result);
         }
 
-        public Task AddAsync(Show show)
+        public Task StoreAsync(Show show)
         {
-            _dictionary.Add(show.Name, show);
+            _dictionary[show.Id] = show;
 
             return Task.CompletedTask;
         }

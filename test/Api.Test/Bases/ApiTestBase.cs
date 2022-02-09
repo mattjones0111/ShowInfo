@@ -51,7 +51,7 @@
 
             foreach (Show show in shows)
             {
-                await _repository.AddAsync(show);
+                await _repository.StoreAsync(show);
             }
         }
 

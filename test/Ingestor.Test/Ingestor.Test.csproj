@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Data\shows-1-cast.json" />
+    <None Remove="Data\shows.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Data\shows-1-cast.json" />
+    <EmbeddedResource Include="Data\shows.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="JustEat.HttpClientInterception" Version="3.1.1" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+    <PackageReference Include="NUnit" Version="3.13.2" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
+    <PackageReference Include="coverlet.collector" Version="3.1.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Ingestor\Ingestor.csproj" />
+    <ProjectReference Include="..\..\src\Process\Process.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Doubles\" />
+  </ItemGroup>
+
+</Project>

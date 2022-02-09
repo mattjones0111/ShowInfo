@@ -8,11 +8,13 @@
 
     public class Worker : BackgroundService
     {
-        private readonly ILogger<Worker> _logger;
+        readonly IImporter _importer;
+        readonly ILogger _logger;
 
-        public Worker(ILogger<Worker> logger)
+        public Worker(ILogger<Worker> logger, IImporter importer)
         {
             _logger = logger;
+            _importer = importer;
         }
 
         protected override async Task ExecuteAsync(
@@ -20,8 +22,9 @@
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                await Task.Delay(1000, stoppingToken);
+                await _importer.GoAsync();
+
+                await Task.Delay(TimeSpan.FromDays(1), stoppingToken);
             }
         }
     }
