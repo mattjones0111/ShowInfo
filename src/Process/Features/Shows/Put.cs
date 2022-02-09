@@ -1,5 +1,6 @@
 ﻿namespace Process.Features.Shows
 {
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using Contracts.V1;
@@ -37,6 +38,11 @@
                 Command request,
                 CancellationToken cancellationToken)
             {
+                request.Show.Cast = request.Show
+                    .Cast
+                    .OrderByDescending(x => x.Birthday)
+                    .ToArray();
+
                 await _repository.StoreAsync(request.Show);
 
                 return CommandResult.Void;

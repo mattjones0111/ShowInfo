@@ -8,6 +8,7 @@
     using Configuration;
     using Contracts.V1;
     using Doubles;
+    using Helpers;
     using JustEat.HttpClientInterception;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -80,6 +81,14 @@
             Assert.AreEqual("Under the Dome", actual.Name);
             Assert.AreEqual(1, actual.Id);
             Assert.AreEqual(15, actual.Cast.Length);
+
+            DateTime[] datesOfBirth = actual
+                .Cast
+                .Where(x => x.Birthday.HasValue)
+                .Select(x => x.Birthday.Value)
+                .ToArray();
+
+            CollectionAssert.IsOrdered(datesOfBirth, new DateTimeInverterComparer());
         }
     }
 }
