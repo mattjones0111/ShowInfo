@@ -3,6 +3,7 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using Aspects.Validation;
     using Contracts.V1;
     using FluentValidation;
     using MediatR;
@@ -21,7 +22,8 @@
             public Validator()
             {
                 RuleFor(x => x.Show)
-                    .NotNull();
+                    .NotNull()
+                    .SetValidator(new ShowValidator());
             }
         }
 
